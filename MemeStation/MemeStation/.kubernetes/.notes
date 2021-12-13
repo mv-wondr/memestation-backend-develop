@@ -1,0 +1,7 @@
+#update db
+kubectl exec -it nft-core-559d5c9886-8v5sd -- /bin/bash
+#copy new file
+kubectl cp meme_station_2021-12-05.db nft-core-559d5c9886-8v5sd:/sqlite
+
+#update image deployment
+kubectl set image deployment/nft-core memestation-backend-sha256-1=grc...

@@ -1,0 +1,10 @@
+drop table memeuser;
+drop table meme_news;
+drop table invite;
+drop table meme;
+drop table reaction;
+drop table user;
+drop table transfer_ownership;
+drop table Shared;
+drop table meme_comment;
+drop table referral;

@@ -1,0 +1,7 @@
+{
+  "AlphaSecret": "test",
+  "ContractOwnerPrivKey": "",
+  "ContractAddress": "",
+  "InfuraUrl":"https://rinkeby.infura.io/v3/7fdb8cb23876496d8f6d060b0a334c84",
+  "DbPath": "Data Source=./Database/SQL/meme_station.db;"
+}

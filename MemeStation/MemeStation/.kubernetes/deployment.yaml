@@ -1,0 +1,72 @@
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "nft-core-config-cyed"
+  namespace: "default"
+  labels:
+    app: "nft-core"
+data:
+  CONFIG_PATH: "/nft-config/config.json"
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "nft-core"
+  namespace: "default"
+  labels:
+    app: "nft-core"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "nft-core"
+  template:
+    metadata:
+      labels:
+        app: "nft-core"
+    spec:
+      containers:
+      - name: "memestation-backend-sha256-1"
+        image: "gcr.io/meme-station-315520/github.com/mantletechnologies/memestation-backend@sha256:8a049921f84e88c44ada00ec3bd01b8b368b4f6d8b6e6ed62f58c6ca4814b4bd"
+        env:
+        - name: "CONFIG_PATH"
+          valueFrom:
+            configMapKeyRef:
+              key: "CONFIG_PATH"
+              name: "nft-core-config-cyed"
+        volumeMounts:
+          - mountPath: "/nft-config"
+            name: "config"
+            readOnly: true
+
+          - mountPath: "/sqlite"
+            name: "sqlite"
+
+          - name: mongodb-configuration-file
+            mountPath: /etc/mongod.conf
+            readOnly: true
+          - name: mongodb-persistent-storage
+            mountPath: /data/db
+
+      - name: mongodb
+        image: mongo:4.4.0-bionic
+        ports:
+          - containerPort: 27017
+
+
+      volumes:
+        - name: "config"
+          secret: 
+            secretName: "config"
+
+        - name: "sqlite"
+          gcePersistentDisk: 
+            pdName: "sqlite-disk"
+            
+        - name: mongodb-persistent-storage
+          persistentVolumeClaim:
+            claimName: mongodb-pv-claim
+        - name: mongodb-configuration-file
+          configMap:
+            name: mongodb-config-file
