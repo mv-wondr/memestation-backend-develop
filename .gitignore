@@ -1,0 +1,13 @@
+*.idea/
+MemeStation/MemeStation/obj/
+
+MemeStation/MemeStation/Properties/
+
+MemeStation/.vs/
+
+MemeStation/MemeStation/bin/
+MemeStation/MemeStation/Config/config.json
+
+MemeStation/MemeStation/Database/SQL/meme_station.db
+
+MemeStation/MemeStation/Database/SQL/meme_station.db-wal
